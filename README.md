@@ -20,7 +20,7 @@ This repository will serve as a collection of quantum algorithms, ranging from f
 
 To get started, ensure you have the following installed:
 
-- Python 3.10 or later
+- Python 3.11 or later
 - Qiskit
 - Jupyter Notebook
 
