@@ -10,6 +10,7 @@ This repository will serve as a collection of quantum algorithms, ranging from f
 
 - Implementation of quantum algorithms such as:
     - Simple Quantum Teleportation
+    - Superdense Coding
     - Grover's Search Algorithm # TODO
     - Shor's Algorithm # TODO
     - Quantum Fourier Transform (QFT) # TODO
