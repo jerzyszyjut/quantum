@@ -27,10 +27,24 @@ To get started, ensure you have the following installed:
 
 ## Installation
 
-1. Install dependencies:
+1. Create a virtual environment (optional but recommended):
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+   ```
+
+2. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
+
+3. Launch Jupyter Notebook:
+   ```bash
+   jupyter notebook
+   ```
+4. Open the Jupyter notebooks in the `notebooks/` directory.
+
+5. If you want to run the code on IBM Quantum hardware, set up your IBM Quantum account and add input API token in designated place in the code.
 
 ## Usage
 

@@ -1,0 +1,144 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{Raport: Komputery kwantowe}
+\author{Jerzy Szyjut \\
+        193064 \\
+        Hubert Malinowski \\
+        193088}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Wstęp}
+W ramach $\mu Projektu$ z przedmiotu Zaawansowane architektury komputerów 
+przygotowaliśmy implementację kilku algorytmów kwantowych przy pomocy biblioteki
+Qiskit w języku Python. W projekcie wzięliśmy pod uwagę algorytmy:
+\begin{itemize}
+    \item Grovera
+    \item Shora
+    \item Teleportaacji
+\end{itemize}
+Dzięki funkcjonalności biblioteki Qiskit algortmy te można uruchomić
+na prawdziwych komputerach kwantowych, które są dostępne w chmurze
+IBM.
+
+\section{Wstęp teoretyczny}
+Komputery kwantowe to urządzenia obliczeniowe, które wykorzystują 
+zjawiska mechaniki kwantowej do przetwarzania informacji. Podstawową 
+jednostką informacji w komputerze kwantowym jest \textbf{kubity} 
+(ang. \emph{qubit}), który w przeciwieństwie do klasycznego bitu może 
+znajdować się nie tylko w stanie $0$ lub $1$, ale także w ich superpozycji, 
+czyli w stanie będącym kombinacją obu tych wartości:
+\[
+|\psi\rangle = \alpha|0\rangle + \beta|1\rangle,
+\]
+gdzie $\alpha$ i $\beta$ są liczbami spełniającymi $|\alpha|^2 + |\beta|^2 = 1$.
+
+\vspace{0.5cm}
+
+Kubity charakteryzują się dwoma kluczowymi właściwościami:
+\begin{itemize}
+    \item \textbf{Superpozycja} - możliwość jednoczesnego przebywania w wielu 
+    stanach.
+    \item \textbf{Splątanie} - zjawisko, w którym stan jednego kubitu jest 
+    nierozerwalnie związany ze stanem innego, nawet jeśli są one od siebie 
+    oddalone.
+\end{itemize}
+
+Obliczenia w komputerach kwantowych realizowane są za pomocą 
+\textbf{bramek kwantowych}, które odpowiadają operacjom na kubitach. 
+Bramki te, takie jak bramka Hadamarda, bramka Pauli-X czy bramka CNOT, 
+pozwalają na manipulowanie stanami kubitów i tworzenie złożonych algorytmów 
+kwantowych.
+
+Komputery kwantowe mają potencjał do rozwiązywania pewnych problemów znacznie 
+szybciej niż komputery klasyczne, wykorzystując równoległość obliczeń 
+wynikającą z superpozycji oraz korelacje wynikające ze splątania.
+
+\section{Uruchomienie projektu}
+
+Aby uruchomić projekt wystarczy podążać za instrukcjami zawartymi w pliku 
+\texttt{README.md}. Kopię tych instrukcji zamieszczam poniżej:
+
+
+\subsection{Wymagania wstępne}
+
+Aby rozpocząć pracę, upewnij się, że masz zainstalowane następujące elementy:
+
+\begin{itemize}
+    \item Python 3.11 lub nowszy
+    \item Qiskit
+    \item Jupyter Notebook
+\end{itemize}
+
+\subsection{Instalacja}
+
+\begin{enumerate}
+    \item Utwórz środowisko wirtualne (opcjonalnie, ale zalecane):
+    \begin{verbatim}
+python -m venv venv
+source venv/bin/activate  # W systemie Windows użyj `venv\Scripts\activate`
+    \end{verbatim}
+
+    \item Zainstaluj wymagane zależności:
+    \begin{verbatim}
+pip install -r requirements.txt
+    \end{verbatim}
+
+    \item Uruchom Jupyter Notebook:
+    \begin{verbatim}
+jupyter notebook
+    \end{verbatim}
+
+    \item Otwórz notatniki Jupyter znajdujące się w katalogu \texttt{notebooks/}.
+
+    \item Jeśli chcesz uruchomić kod na sprzęcie IBM Quantum, skonfiguruj swoje
+     konto IBM Quantum i wprowadź token API w odpowiednim miejscu w kodzie.
+\end{enumerate}
+
+\subsection{Użytkowanie}
+
+\begin{enumerate}
+    \item Uruchom notatniki Jupyter w katalogu \texttt{notebooks/}.
+    \item Modyfikuj i eksperymentuj z kodem, aby pogłębić swoją wiedzę.
+\end{enumerate}
+
+\section{Dostęp do komputerów kwantowych IBM}
+Aby uzyskać dostęp do komputerów kwantowych IBM, należy zarejestrować się na
+stronie IBM Quantum i uzyskać token API. Następnie można skonfigurować
+token w kodzie, aby uzyskać dostęp do zasobów kwantowych. W momencie w którym
+piszę ten raport, dostępne są komputery kwantowe o % uzupełnić
+różnej liczbie kubitów, o architekturach różnych. W planie darmowym można
+przeprowadzać obliczenia na komputerach kwantowych przez 10 minut miesięcznie.
+
+\section{Budowa biblioteki Qiskit}
+
+Qiskit to modułowa, open-source'owa biblioteka kwantowa rozwijana przez IBM i społeczność, zaprojektowana do tworzenia, analizowania i wykonywania obliczeń kwantowych. Architektura Qiskit została zbudowana z myślą o skalowalności i wsparciu dla różnych backendów kwantowych i klasycznych.
+
+\subsection{Quantum Circuit}
+Komponent \texttt{QuantumCircuit} stanowi podstawowy interfejs programowania algorytmów kwantowych. Umożliwia definiowanie rejestrów (klasycznych i kwantowych), aplikowanie bramek, pomiarów, a także kontrolę przepływu programu. Obwody są obiektami wysokiego poziomu, które można analizować, optymalizować oraz kompilować przy użyciu narzędzi takich jak \texttt{transpile}.
+
+\subsection{Pass Manager}
+\texttt{PassManager} odpowiada za kompilację obwodów kwantowych, przeprowadzając je przez szereg transformacji zwanych \textit{passami}. Każdy pass może optymalizować, przekształcać lub analizować obwód. Passy są organizowane w etapy (\textit{stages}) takie jak unifikacja bramek, mapowanie na topologię sprzętową oraz redukcja głębokości obwodu. Użytkownik może tworzyć własne sekwencje passów lub korzystać z domyślnych przepływów.
+
+\subsection{Primitives}
+\texttt{Primitives} to uproszczony i nowoczesny interfejs programistyczny umożliwiający użytkownikom wykonywanie zadań kwantowych takich jak próbkowanie (\texttt{Sampler}), szacowanie oczekiwanej wartości (\texttt{Estimator}) czy pomiary stanu. Odseparowują one szczegóły backendu i umożliwiają programowanie na wyższym poziomie abstrakcji, z zachowaniem precyzyjnej kontroli nad parametrami eksperymentu.
+
+\subsection{Inne komponenty}
+\begin{itemize}
+  \item \textbf{Qiskit Runtime}: Architektura wykonawcza zapewniająca elastyczną i wydajną obsługę zadań kwantowych, działającą lokalnie lub w chmurze.
+  \item \textbf{Qiskit Terra}: Podstawowy pakiet odpowiedzialny za kompilację i reprezentację obwodów.
+  \item \textbf{Qiskit Aer}: Symulator kwantowy umożliwiający emulację obliczeń kwantowych na klasycznym sprzęcie.
+  \item \textbf{Qiskit Experiments}: Framework do prowadzenia eksperymentów kalibracyjnych i charakterystyki urządzeń kwantowych.
+\end{itemize}
+
+\end{document}
